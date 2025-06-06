@@ -18,7 +18,7 @@ Saves a JSON file like:
 from __future__ import annotations
 from pathlib import Path
 import json, time, numpy as np
-from typing import Dict, List
+from typing import Dict, List, Any
 
 # Import the new get_current_macro_state function
 from .timeline_sampler     import TimelineSampler
@@ -141,18 +141,20 @@ class BatchRunner:
                 
                 # 4) Combine baseline + event-induced drifts/vols for this year
                 combo = self.agg.combine(
-                    event_results["drift"], # event_results["drift"] is for current year
-                    event_results["volmul"] # event_results["volmul"] is for current year
+                    event_results["drift"] # event_results["drift"] is for current year
                 )
-                mu_year_combined  = combo["mu"]   # shape: (n_assets)
-                cov_year_combined = combo["cov"]  # shape: (n_assets, n_assets)
+                mu_event_adjusted = combo["mu"]   # This is baseline mu + event drift + event noise
+                base_cov_from_agg = combo["cov"]  # This is the baseline covariance
 
-                # 5a) Apply macro-state mu_shift PER ASSET for this year
-                mu_year_combined = mu_year_combined + macro_mu_shift_arr
+                # 5a) Apply macro-state mu_shift and event-induced mu to get final mu
+                mu_year_combined = mu_event_adjusted + macro_mu_shift_arr
 
-                # 5b) Scale covariance by sigma_mult^2 PER ASSET for this year
-                sigma_mult_matrix = np.diag(macro_sigma_mult_arr)
-                cov_year_combined = sigma_mult_matrix @ cov_year_combined @ sigma_mult_matrix.T
+                # 5b) Combine macro and event vol multipliers and apply to covariance
+                # event_results["volmul"] is event_vol_multiplier_array from EventTreeEngine
+                combined_sigma_mult_arr = event_results["volmul"] * macro_sigma_mult_arr 
+
+                sigma_mult_matrix = np.diag(combined_sigma_mult_arr)
+                cov_year_combined = sigma_mult_matrix @ base_cov_from_agg @ sigma_mult_matrix.T
                 
                 # Store adjusted mu and cov for this specific year
                 path_mu_arr[year] = mu_year_combined

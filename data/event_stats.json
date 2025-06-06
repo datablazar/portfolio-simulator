@@ -1,26 +1,693 @@
 [
-  { "id": "E0_OpenSourceLLM",  "mu": 4.0,  "sigma": 1.6 },
-  { "id": "E0_ChipExportTighten", "mu": 4.0, "sigma": 1.6 },
-  { "id": "E0_EU_AIActEnforce",  "mu": 3.0,  "sigma": 1.2 },
-  { "id": "E0_CyberMegabreach",  "mu": 8.0,  "sigma": 3.2 },
-  { "id": "E0_SMNuclear_OK",     "mu": 6.0,  "sigma": 2.4 },
-
-  { "id": "E1_Breakthrough",     "mu": 6.0,  "sigma": 2.4 },
-  { "id": "E1_LicenseClamp",     "mu": 5.0,  "sigma": 2.0 },
-  { "id": "E1_HardwareBoom",     "mu": 8.0,  "sigma": 3.2 },
-  { "id": "E1_SupplyShock",      "mu": 6.0,  "sigma": 2.4 },
-
-  { "id": "E2_Aligned",          "mu": 7.0,  "sigma": 2.8 },
-  { "id": "E2_Partial",          "mu": 3.0,  "sigma": 1.2 },
-  { "id": "E2_Misaligned",       "mu": 12.0, "sigma": 4.8 },
-
-  { "id": "E3_FastTakeoff",      "mu": 12.0, "sigma": 4.8 },
-  { "id": "E3_Throttled",        "mu": 4.0,  "sigma": 1.6 },
-  { "id": "E3_Bottleneck",       "mu": 5.0,  "sigma": 2.0 },
-  { "id": "E3_Stall",            "mu": 5.0,  "sigma": 2.0 },
-
-  { "id": "E4_Abundance",        "mu": 7.0,  "sigma": 2.8 },
-  { "id": "E4_Oligopoly",        "mu": 14.0, "sigma": 5.6 },
-  { "id": "E4_Managed",          "mu": 4.0,  "sigma": 1.6 },
-  { "id": "E4_Conflict",         "mu": 8.0,  "sigma": 3.2 }
+  {
+    "id": "E-B0-Breakthrough",
+    "drift_mu": {
+      "SEMI": 0.06,
+      "XAIX": 0.06,
+      "RBTX": 0.05
+    },
+    "drift_sigma": {
+      "SEMI": 0.018,
+      "XAIX": 0.018,
+      "RBTX": 0.015
+    },
+    "vol_mu": {
+      "SEMI": 1.05,
+      "XAIX": 1.05,
+      "RBTX": 1.05
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "XAIX": 0.02,
+      "RBTX": 0.02
+    }
+  },
+  {
+    "id": "E-B0-SMR",
+    "drift_mu": {
+      "NUCG": 0.06,
+      "WCOM": 0.02
+    },
+    "drift_sigma": {
+      "NUCG": 0.018,
+      "WCOM": 0.006
+    },
+    "vol_mu": {
+      "NUCG": 0.98,
+      "WCOM": 0.98
+    },
+    "vol_sigma": {
+      "NUCG": 0.02,
+      "WCOM": 0.02
+    }
+  },
+  {
+    "id": "E-B0-GPUShortage",
+    "drift_mu": {
+      "SEMI": -0.04
+    },
+    "drift_sigma": {
+      "SEMI": 0.012
+    },
+    "vol_mu": {
+      "SEMI": 1.08
+    },
+    "vol_sigma": {
+      "SEMI": 0.02
+    }
+  },
+  {
+    "id": "E-B0-CyberHit",
+    "drift_mu": {
+      "ISPY": 0.07,
+      "PACW": -0.04
+    },
+    "drift_sigma": {
+      "ISPY": 0.021,
+      "PACW": 0.012
+    },
+    "vol_mu": {
+      "ISPY": 1.12,
+      "PACW": 1.12
+    },
+    "vol_sigma": {
+      "ISPY": 0.02,
+      "PACW": 0.02
+    }
+  },
+  {
+    "id": "E-B0-TreatyDelay",
+    "drift_mu": {
+      "PACW": -0.01
+    },
+    "drift_sigma": {
+      "PACW": 0.003
+    },
+    "vol_mu": {
+      "PACW": 1.00
+    },
+    "vol_sigma": {
+      "PACW": 0.02
+    }
+  },
+  {
+    "id": "E-B0-EU-AIAct",
+    "drift_mu": {
+      "XAIX": -0.03,
+      "VAGS": -0.02
+    },
+    "drift_sigma": {
+      "XAIX": 0.009,
+      "VAGS": 0.006
+    },
+    "vol_mu": {
+      "XAIX": 1.05,
+      "VAGS": 1.05
+    },
+    "vol_sigma": {
+      "XAIX": 0.02,
+      "VAGS": 0.02
+    }
+  },
+  {
+    "id": "E-B0-ExportControls",
+    "drift_mu": {
+      "SEMI": 0.04,
+      "PACW": -0.02
+    },
+    "drift_sigma": {
+      "SEMI": 0.012,
+      "PACW": 0.006
+    },
+    "vol_mu": {
+      "SEMI": 1.05,
+      "PACW": 1.05
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "PACW": 0.02
+    }
+  },
+  {
+    "id": "E-B0-AI-WeaponsBan",
+    "drift_mu": {
+      "WDEP": 0.03,
+      "ISPY": 0.02
+    },
+    "drift_sigma": {
+      "WDEP": 0.009,
+      "ISPY": 0.006
+    },
+    "vol_mu": {
+      "WDEP": 1.10,
+      "ISPY": 1.10
+    },
+    "vol_sigma": {
+      "WDEP": 0.02,
+      "ISPY": 0.02
+    }
+  },
+  {
+    "id": "E-B0-AI-EnergyCrisis",
+    "drift_mu": {
+      "WCOM": 0.05,
+      "NUCG": 0.03,
+      "SEMI": -0.03,
+      "XAIX": -0.04,
+      "PACW": -0.02
+    },
+    "drift_sigma": {
+      "WCOM": 0.015,
+      "NUCG": 0.009,
+      "SEMI": 0.009,
+      "XAIX": 0.012,
+      "PACW": 0.006
+    },
+    "vol_mu": {
+      "WCOM": 1.10,
+      "NUCG": 1.10,
+      "SEMI": 1.10,
+      "XAIX": 1.10,
+      "PACW": 1.10
+    },
+    "vol_sigma": {
+      "WCOM": 0.02,
+      "NUCG": 0.02,
+      "SEMI": 0.02,
+      "XAIX": 0.02,
+      "PACW": 0.02
+    }
+  },
+  {
+    "id": "E-B0-MajorLaborDisplacement",
+    "drift_mu": {
+      "VAGS": 0.03,
+      "ITPS": -0.05,
+      "WLDS": -0.02,
+      "PRIJ": -0.03
+    },
+    "drift_sigma": {
+      "VAGS": 0.009,
+      "ITPS": 0.015,
+      "WLDS": 0.006,
+      "PRIJ": 0.009
+    },
+    "vol_mu": {
+      "VAGS": 1.15,
+      "ITPS": 1.15,
+      "WLDS": 1.15,
+      "PRIJ": 1.15
+    },
+    "vol_sigma": {
+      "VAGS": 0.02,
+      "ITPS": 0.02,
+      "WLDS": 0.02,
+      "PRIJ": 0.02
+    }
+  },
+  {
+    "id": "E-B0-AI-BiasScandal",
+    "drift_mu": {
+      "PACW": -0.03,
+      "XAIX": -0.05,
+      "ITPS": -0.02,
+      "IWFQ": -0.01
+    },
+    "drift_sigma": {
+      "PACW": 0.009,
+      "XAIX": 0.015,
+      "ITPS": 0.006,
+      "IWFQ": 0.003
+    },
+    "vol_mu": {
+      "PACW": 1.08,
+      "XAIX": 1.08,
+      "ITPS": 1.08,
+      "IWFQ": 1.08
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "XAIX": 0.02,
+      "ITPS": 0.02,
+      "IWFQ": 0.02
+    }
+  },
+  {
+    "id": "E-B0-EscalatedTechWar",
+    "drift_mu": {
+      "SEMI": -0.05,
+      "XCX5": -0.08,
+      "PACW": -0.03,
+      "WDEP": 0.04,
+      "ISPY": 0.05
+    },
+    "drift_sigma": {
+      "SEMI": 0.015,
+      "XCX5": 0.024,
+      "PACW": 0.009,
+      "WDEP": 0.012,
+      "ISPY": 0.015
+    },
+    "vol_mu": {
+      "SEMI": 1.20,
+      "XCX5": 1.20,
+      "PACW": 1.20,
+      "WDEP": 1.20,
+      "ISPY": 1.20
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "XCX5": 0.02,
+      "PACW": 0.02,
+      "WDEP": 0.02,
+      "ISPY": 0.02
+    }
+  },
+  {
+    "id": "E-B0-NoTechWarEscalation",
+    "drift_mu": {},
+    "drift_sigma": {},
+    "vol_mu": {},
+    "vol_sigma": {}
+  },
+  {
+    "id": "E-B0-AIPharmaBreakthrough",
+    "drift_mu": {
+      "PACW": 0.02,
+      "IWFQ": 0.03,
+      "MINV": 0.04
+    },
+    "drift_sigma": {
+      "PACW": 0.006,
+      "IWFQ": 0.009,
+      "MINV": 0.012
+    },
+    "vol_mu": {
+      "PACW": 0.99,
+      "IWFQ": 0.99,
+      "MINV": 0.99
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "IWFQ": 0.02,
+      "MINV": 0.02
+    }
+  },
+  {
+    "id": "E-B0-ContinuedDelay",
+    "drift_mu": {
+      "PACW": -0.01,
+      "XAIX": -0.02
+    },
+    "drift_sigma": {
+      "PACW": 0.003,
+      "XAIX": 0.006
+    },
+    "vol_mu": {
+      "PACW": 1.02,
+      "XAIX": 1.02
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "XAIX": 0.02
+    }
+  },
+  {
+    "id": "E-B0-GlobalAIGovTreaty",
+    "drift_mu": {
+      "WLDS": 0.02,
+      "VAGS": 0.01,
+      "IWFQ": 0.02
+    },
+    "drift_sigma": {
+      "WLDS": 0.006,
+      "VAGS": 0.003,
+      "IWFQ": 0.006
+    },
+    "vol_mu": {
+      "WLDS": 0.95,
+      "VAGS": 0.95,
+      "IWFQ": 0.95
+    },
+    "vol_sigma": {
+      "WLDS": 0.02,
+      "VAGS": 0.02,
+      "IWFQ": 0.02
+    }
+  },
+  {
+    "id": "E-B1-Success",
+    "drift_mu": {
+      "SEMI": 0.07,
+      "XAIX": 0.07,
+      "RBTX": 0.06
+    },
+    "drift_sigma": {
+      "SEMI": 0.021,
+      "XAIX": 0.021,
+      "RBTX": 0.018
+    },
+    "vol_mu": {
+      "SEMI": 0.95,
+      "XAIX": 0.95,
+      "RBTX": 0.95
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "XAIX": 0.02,
+      "RBTX": 0.02
+    }
+  },
+  {
+    "id": "E-B1-Partial",
+    "drift_mu": {
+      "SEMI": -0.03,
+      "PACW": -0.02
+    },
+    "drift_sigma": {
+      "SEMI": 0.009,
+      "PACW": 0.006
+    },
+    "vol_mu": {
+      "SEMI": 1.15,
+      "PACW": 1.15
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "PACW": 0.02
+    }
+  },
+  {
+    "id": "E-B1-Fail",
+    "drift_mu": {
+      "PACW": -0.06,
+      "XAIX": -0.12
+    },
+    "drift_sigma": {
+      "PACW": 0.018,
+      "XAIX": 0.036
+    },
+    "vol_mu": {
+      "PACW": 1.30,
+      "XAIX": 1.30
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "XAIX": 0.02
+    }
+  },
+  {
+    "id": "E-S2-FastTakeoff",
+    "drift_mu": {
+      "SEMI": 0.12,
+      "XAIX": 0.12,
+      "RBTX": 0.09
+    },
+    "drift_sigma": {
+      "SEMI": 0.036,
+      "XAIX": 0.036,
+      "RBTX": 0.027
+    },
+    "vol_mu": {
+      "SEMI": 0.82,
+      "XAIX": 0.82,
+      "RBTX": 0.82
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "XAIX": 0.02,
+      "RBTX": 0.02
+    }
+  },
+  {
+    "id": "E-S2-Throttled",
+    "drift_mu": {
+      "SEMI": 0.04
+    },
+    "drift_sigma": {
+      "SEMI": 0.012
+    },
+    "vol_mu": {
+      "SEMI": 1.00
+    },
+    "vol_sigma": {
+      "SEMI": 0.02
+    }
+  },
+  {
+    "id": "E-S2-Bottleneck",
+    "drift_mu": {
+      "SEMI": -0.05,
+      "WDEP": 0.03
+    },
+    "drift_sigma": {
+      "SEMI": 0.015,
+      "WDEP": 0.009
+    },
+    "vol_mu": {
+      "SEMI": 1.12,
+      "WDEP": 1.12
+    },
+    "vol_sigma": {
+      "SEMI": 0.02,
+      "WDEP": 0.02
+    }
+  },
+  {
+    "id": "E-S2-Stall",
+    "drift_mu": {
+      "PACW": -0.03,
+      "SEMI": -0.05
+    },
+    "drift_sigma": {
+      "PACW": 0.009,
+      "SEMI": 0.015
+    },
+    "vol_mu": {
+      "PACW": 1.15,
+      "SEMI": 1.15
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "SEMI": 0.02
+    }
+  },
+  {
+    "id": "E-P3-Abundance",
+    "drift_mu": {
+      "PACW": 0.04,
+      "IWFV": 0.02,
+      "SEMI": 0.07
+    },
+    "drift_sigma": {
+      "PACW": 0.012,
+      "IWFV": 0.006,
+      "SEMI": 0.021
+    },
+    "vol_mu": {
+      "PACW": 0.78,
+      "IWFV": 0.78,
+      "SEMI": 0.78
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "IWFV": 0.02,
+      "SEMI": 0.02
+    }
+  },
+  {
+    "id": "E-P3-Oligopoly",
+    "drift_mu": {
+      "PACW": 0.07,
+      "SEMI": 0.14,
+      "XAIX": 0.14
+    },
+    "drift_sigma": {
+      "PACW": 0.021,
+      "SEMI": 0.042,
+      "XAIX": 0.042
+    },
+    "vol_mu": {
+      "PACW": 1.12,
+      "SEMI": 1.12,
+      "XAIX": 1.12
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "SEMI": 0.02,
+      "XAIX": 0.02
+    }
+  },
+  {
+    "id": "E-P3-Managed",
+    "drift_mu": {
+      "PACW": 0.02,
+      "SEMI": 0.04
+    },
+    "drift_sigma": {
+      "PACW": 0.006,
+      "SEMI": 0.012
+    },
+    "vol_mu": {
+      "PACW": 1.00,
+      "SEMI": 1.00
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "SEMI": 0.02
+    }
+  },
+  {
+    "id": "E-P3-Conflict",
+    "drift_mu": {
+      "PACW": -0.03,
+      "WDEP": 0.07,
+      "ISPY": 0.08,
+      "SGLN": 0.03
+    },
+    "drift_sigma": {
+      "PACW": 0.009,
+      "WDEP": 0.021,
+      "ISPY": 0.024,
+      "SGLN": 0.009
+    },
+    "vol_mu": {
+      "PACW": 1.32,
+      "WDEP": 1.32,
+      "ISPY": 1.32,
+      "SGLN": 1.32
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "WDEP": 0.02,
+      "ISPY": 0.02,
+      "SGLN": 0.02
+    }
+  },
+  {
+    "id": "E-P3-EquitableDistribution",
+    "drift_mu": {
+      "VAGS": -0.02,
+      "WLDS": 0.05,
+      "IWFV": 0.03,
+      "EMIM": 0.04,
+      "PRIJ": -0.05
+    },
+    "drift_sigma": {
+      "VAGS": 0.006,
+      "WLDS": 0.015,
+      "IWFV": 0.009,
+      "EMIM": 0.012,
+      "PRIJ": 0.015
+    },
+    "vol_mu": {
+      "VAGS": 0.90,
+      "WLDS": 0.90,
+      "IWFV": 0.90,
+      "EMIM": 0.90,
+      "PRIJ": 0.90
+    },
+    "vol_sigma": {
+      "VAGS": 0.02,
+      "WLDS": 0.02,
+      "IWFV": 0.02,
+      "EMIM": 0.02,
+      "PRIJ": 0.02
+    }
+  },
+  {
+    "id": "E-P3-InequitableOutcome",
+    "drift_mu": {
+      "PACW": -0.02,
+      "SEMI": -0.02,
+      "VAGS": 0.02,
+      "EMIM": -0.02,
+      "XAIX": -0.02,
+      "ITPS": -0.02,
+      "IWFQ": -0.02,
+      "RBTX": -0.02,
+      "WLDS": -0.03,
+      "MINV": -0.02,
+      "IWFV": -0.02,
+      "EQQQ": -0.02,
+      "MEUD": -0.02,
+      "PRIJ": -0.04,
+      "XCX5": -0.02,
+      "WDEP": -0.02,
+      "LCUK": -0.02,
+      "WCOM": -0.02,
+      "ISPY": -0.02,
+      "NUCG": -0.02,
+      "SGLN": -0.02
+    },
+    "drift_sigma": {
+      "PACW": 0.006,
+      "SEMI": 0.006,
+      "VAGS": 0.006,
+      "EMIM": 0.006,
+      "XAIX": 0.006,
+      "ITPS": 0.006,
+      "IWFQ": 0.006,
+      "RBTX": 0.006,
+      "WLDS": 0.009,
+      "MINV": 0.006,
+      "IWFV": 0.006,
+      "EQQQ": 0.006,
+      "MEUD": 0.006,
+      "PRIJ": 0.012,
+      "XCX5": 0.006,
+      "WDEP": 0.006,
+      "LCUK": 0.006,
+      "WCOM": 0.006,
+      "ISPY": 0.006,
+      "NUCG": 0.006,
+      "SGLN": 0.006
+    },
+    "vol_mu": {
+      "PACW": 1.18,
+      "SEMI": 1.18,
+      "VAGS": 1.18,
+      "EMIM": 1.18,
+      "XAIX": 1.18,
+      "ITPS": 1.18,
+      "IWFQ": 1.18,
+      "RBTX": 1.18,
+      "WLDS": 1.18,
+      "MINV": 1.18,
+      "IWFV": 1.18,
+      "EQQQ": 1.18,
+      "MEUD": 1.18,
+      "PRIJ": 1.18,
+      "XCX5": 1.18,
+      "WDEP": 1.18,
+      "LCUK": 1.18,
+      "WCOM": 1.18,
+      "ISPY": 1.18,
+      "NUCG": 1.18,
+      "SGLN": 1.18
+    },
+    "vol_sigma": {
+      "PACW": 0.02,
+      "SEMI": 0.02,
+      "VAGS": 0.02,
+      "EMIM": 0.02,
+      "XAIX": 0.02,
+      "ITPS": 0.02,
+      "IWFQ": 0.02,
+      "RBTX": 0.02,
+      "WLDS": 0.02,
+      "MINV": 0.02,
+      "IWFV": 0.02,
+      "EQQQ": 0.02,
+      "MEUD": 0.02,
+      "PRIJ": 0.02,
+      "XCX5": 0.02,
+      "WDEP": 0.02,
+      "LCUK": 0.02,
+      "WCOM": 0.02,
+      "ISPY": 0.02,
+      "NUCG": 0.02,
+      "SGLN": 0.02
+    }
+  }
 ]
