@@ -78,7 +78,6 @@ class EventTreeEngine:
                 - "volmul": Multiplicative volatility factor.
                 - "triggered_ep3_event_id": The ID of the last triggered E-P3 event, if any.
         """
-        fired_events_this_year: List[Event] = []
         # Initialize drifts and volatility for this year
         year_drift = np.zeros(len(self.tickers))
         year_vol_change = 0.0 # additive change
@@ -95,7 +94,6 @@ class EventTreeEngine:
                 "triggered_ep3_event_id": self.triggered_ep3_event_id
             }
 
-        ai_year = timeline.get("ai_year")
         agi_year = timeline.get("agi_year")
         asi_year = timeline.get("asi_year")
 

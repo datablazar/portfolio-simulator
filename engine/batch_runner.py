@@ -18,7 +18,7 @@ Saves a JSON file like:
 from __future__ import annotations
 from pathlib import Path
 import json, time, numpy as np
-from typing import Dict, List, Any
+from typing import Dict, List
 
 # Import the new get_current_macro_state function
 from .timeline_sampler     import TimelineSampler
