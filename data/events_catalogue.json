@@ -1,0 +1,292 @@
+[
+  {
+    "id": "E-B0-Breakthrough",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.30,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "SEMI": 6, "XAIX": 6, "RBTX": 5 },
+    "delta_vol": 0.05,
+    "next_events": [
+      ["E-B1-Fail", 0.25],
+      ["E-B1-Partial", 0.50],
+      ["E-B1-Success", 0.25]
+    ],
+    "narrative": "Discovery of a self-improving AI system (expert surveys estimate ~30% chance in coming decades)."
+  },
+  {
+    "id": "E-B0-SMR",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.28,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "NUCG": 6, "WCOM": 2 },
+    "delta_vol": -0.02,
+    "next_events": [],
+    "narrative": "Small modular nuclear reactors approved (first SMRs on-grid by ~2030). Boosts nuclear and utilities ETFs."
+  },
+  {
+    "id": "E-B0-GPUShortage",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.30,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "SEMI": -4 },
+    "delta_vol": 0.08,
+    "next_events": [],
+    "narrative": "Tight supply for advanced AI chips (e.g. HBM3 GPUs sold out into 2025). Dampens semiconductor sector."
+  },
+  {
+    "id": "E-B0-CyberHit",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.22,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "ISPY": 7, "PACW": -4 },
+    "delta_vol": 0.12,
+    "next_events": [],
+    "narrative": "Major AI-driven cyberattack escalates (global cybercrime surging 200% YoY). Boosts cybersecurity stocks, raises market volatility."
+  },
+  {
+    "id": "E-B0-TreatyDelay",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.10,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "PACW": -1 },
+    "delta_vol": 0.00,
+    "next_events": [],
+    "narrative": "US/EU/UK AI safety treaty pushes back unregulated AGI scaling. Slightly dampens Asia-Pacific tech growth."
+  },
+  {
+    "id": "E-B0-EU-AIAct",
+    "stage": "Pre-AGI",
+    "year_offset": 1,
+    "base_prob": 0.95,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "XAIX": -3, "VAGS": -2 },
+    "delta_vol": 0.05,
+    "next_events": [],
+    "narrative": "EU AI Act enforcement begins (high-risk AI regulated, penalties up to 7% revenue). Weighs on European/global tech growth."
+  },
+  {
+    "id": "E-B0-ExportControls",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.90,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "SEMI": 4, "PACW": -2 },
+    "delta_vol": 0.05,
+    "next_events": [
+      ["E-B0-EscalatedTechWar", 0.30]
+    ],
+    "narrative": "US tightens AI chip exports (e.g. bans on HBM memory to China from 2024). Strengthens US semis, hurts Chinese/Asian tech sector. May lead to an escalated tech war."
+  },
+  {
+    "id": "E-B0-AI-WeaponsBan",
+    "stage": "Pre-AGI",
+    "year_offset": 1,
+    "base_prob": 0.70,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "WDEP": 3, "ISPY": 2 },
+    "delta_vol": 0.10,
+    "next_events": [],
+    "narrative": "UN proposes treaty to ban fully autonomous weapons by 2026. Modestly boosts defense-related technology stocks, raises volatility."
+  },
+  {
+    "id": "E-B0-AI-EnergyCrisis",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.25,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "WCOM": 5, "NUCG": 3, "SEMI": -3, "XAIX": -4, "PACW": -2 },
+    "delta_vol": 0.10,
+    "next_events": [],
+    "narrative": "Escalating AI energy and water demands lead to significant strain on global power grids and water supplies, triggering public backlash and regulatory debates on AI's environmental footprint."
+  },
+  {
+    "id": "E-B0-MajorLaborDisplacement",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.20,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "VAGS": 3, "ITPS": -5, "WLDS": -2, "PRIJ": -3 },
+    "delta_vol": 0.15,
+    "next_events": [],
+    "narrative": "Early AI automation waves cause significant job displacement in specific sectors, leading to social unrest and increased calls for policy interventions like UBI."
+  },
+  {
+    "id": "E-B0-AI-BiasScandal",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.15,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "PACW": -3, "XAIX": -5, "ITPS": -2, "IWFQ": -1 },
+    "delta_vol": 0.08,
+    "next_events": [],
+    "narrative": "Major ethical breaches involving algorithmic bias or data privacy in high-stakes AI applications (e.g., healthcare, finance) erode public trust and trigger stricter regulatory mandates."
+  },
+  {
+    "id": "E-B0-EscalatedTechWar",
+    "stage": "Pre-AGI",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-B0-ExportControls"],
+    "delta_drift": { "SEMI": -5, "XCX5": -8, "PACW": -3, "WDEP": 4, "ISPY": 5 },
+    "delta_vol": 0.20,
+    "next_events": [
+        ["E-P3-Conflict", 0.75],
+        ["E-P3-Managed", 0.25]
+    ],
+    "narrative": "Geopolitical tensions over AI supremacy escalate into broader tech and trade conflicts, leading to supply chain disruptions and increased defense spending."
+  },
+  {
+    "id": "E-B1-Success",
+    "stage": "AGI-Rollout",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-B0-Breakthrough"],
+    "delta_drift": { "SEMI": 7, "XAIX": 7, "RBTX": 6 },
+    "delta_vol": -0.05,
+    "next_events": [
+      ["E-S2-FastTakeoff", 0.50],
+      ["E-S2-Throttled", 0.50]
+    ],
+    "narrative": "AGI aligned successfully → green-lighted global deployment."
+  },
+  {
+    "id": "E-B1-Partial",
+    "stage": "AGI-Rollout",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-B0-Breakthrough"],
+    "delta_drift": { "SEMI": -3, "PACW": -2 },
+    "delta_vol": 0.15,
+    "next_events": [
+      ["E-S2-Bottleneck", 1.0]
+    ],
+    "narrative": "AGI partially aligned → gated, cautious release (heightened uncertainty)."
+  },
+  {
+    "id": "E-B1-Fail",
+    "stage": "AGI-Rollout",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-B0-Breakthrough"],
+    "delta_drift": { "PACW": -6, "XAIX": -12 },
+    "delta_vol": 0.30,
+    "next_events": [
+      ["E-S2-Stall", 1.0]
+    ],
+    "narrative": "AGI alignment fails catastrophically → emergency halt of development."
+  },
+  {
+    "id": "E-S2-FastTakeoff",
+    "stage": "Self-Improving",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-B1-Success"],
+    "delta_drift": { "SEMI": 12, "XAIX": 12, "RBTX": 9 },
+    "delta_vol": -0.18,
+    "next_events": [
+      ["E-P3-Abundance", 0.60],
+      ["E-P3-Oligopoly", 0.40]
+    ],
+    "narrative": "Recursive self-improvement (AGI doubling <6 months)."
+  },
+  {
+    "id": "E-S2-Throttled",
+    "stage": "Self-Improving",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-B1-Success"],
+    "delta_drift": { "SEMI": 4 },
+    "delta_vol": 0.00,
+    "next_events": [
+      ["E-P3-Managed", 1.0]
+    ],
+    "narrative": "Growth throttled by governance measures or technical limits."
+  },
+  {
+    "id": "E-S2-Bottleneck",
+    "stage": "Self-Improving",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-B1-Partial"],
+    "delta_drift": { "SEMI": -5, "WDEP": 3 },
+    "delta_vol": 0.12,
+    "next_events": [
+      ["E-P3-Managed", 0.50],
+      ["E-P3-Conflict", 0.50]
+    ],
+    "narrative": "Scaling bottleneck (limited hardware/policy bottleneck)."
+  },
+  {
+    "id": "E-S2-Stall",
+    "stage": "Self-Improving",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-B1-Fail"],
+    "delta_drift": { "PACW": -3, "SEMI": -5 },
+    "delta_vol": 0.15,
+    "next_events": [
+      ["E-P3-Conflict", 1.0]
+    ],
+    "narrative": "Global development moratorium extends stall."
+  },
+  {
+    "id": "E-P3-Abundance",
+    "stage": "Post-ASI",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-S2-FastTakeoff"],
+    "delta_drift": { "PACW": 4, "IWFV": 2, "SEMI": 7 },
+    "delta_vol": -0.22,
+    "next_events": [],
+    "narrative": "Utopian outcome: abundant AI-driven economy."
+  },
+  {
+    "id": "E-P3-Oligopoly",
+    "stage": "Post-ASI",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-S2-FastTakeoff"],
+    "delta_drift": { "PACW": 7, "SEMI": 14, "XAIX": 14 },
+    "delta_vol": 0.12,
+    "next_events": [],
+    "narrative": "Tech oligopoly: massive concentration of AI wealth in few firms."
+  },
+  {
+    "id": "E-P3-Managed",
+    "stage": "Post-ASI",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-S2-Throttled", "E-S2-Bottleneck"],
+    "delta_drift": { "PACW": 2, "SEMI": 4 },
+    "delta_vol": 0.00,
+    "next_events": [],
+    "narrative": "Regulated equilibrium: AI yields moderate boom with stable controls."
+  },
+  {
+    "id": "E-P3-Conflict",
+    "stage": "Post-ASI",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-S2-Stall", "E-S2-Bottleneck"],
+    "delta_drift": { "PACW": -3, "WDEP": 7, "ISPY": 8, "SGLN": 3 },
+    "delta_vol": 0.32,
+    "next_events": [],
+    "narrative": "Fragmentation/arms race: tech powers compete, global volatility surges."
+  },
+  {
+    "id": "E-P3-EquitableDistribution",
+    "stage": "Post-ASI",
+    "year_offset": 0,
+    "base_prob": 0.0,
+    "condition": ["E-S2-Throttled", "E-P3-Managed"],
+    "delta_drift": { "VAGS": -2, "WLDS": 5, "IWFV": 3, "EMIM": 4, "PRIJ": -5 },
+    "delta_vol": -0.10,
+    "next_events": [],
+    "narrative": "Successful implementation of policies like Universal Basic Income (UBI) and progressive taxation of AGI-generated wealth leads to broad-based prosperity and sustained aggregate demand."
+  }
+]

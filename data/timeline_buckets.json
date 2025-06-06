@@ -1,0 +1,33 @@
+{
+  "buckets": [
+    {
+      "name": "aggressive",
+      "prob": 0.20,
+      "agi_min": 5,
+      "agi_max": 10,
+      "asi_lag": 2
+    },
+    {
+      "name": "moderate",
+      "prob": 0.40,
+      "agi_min": 11,
+      "agi_max": 20,
+      "asi_lag": 3
+    },
+    {
+      "name": "slow",
+      "prob": 0.30,
+      "agi_min": 21,
+      "agi_max": 40,
+      "asi_lag": 5
+    },
+    {
+      "name": "very_slow",
+      "prob": 0.10,
+      "agi_min": 41,
+      "agi_max": 80,
+      "asi_lag": 10
+    }
+  ],
+  "ai_offset": 2
+}

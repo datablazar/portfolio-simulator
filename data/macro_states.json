@@ -1,0 +1,93 @@
+[
+  {
+    "state": "NoBreakthrough",
+    "prob": 0.700,
+    "mu_shift": {
+      "DEFAULT": 0.00,
+      "PACW": 0.00,
+      "SEMI": 0.00,
+      "XAIX": 0.00,
+      "RBTX": 0.00,
+      "ITPS": 0.00,
+      "ISPY": 0.00,
+      "NUCG": 0.00,
+      "WDEP": 0.00
+    },
+    "sigma_mult": {
+      "DEFAULT": 1.00,
+      "PACW": 1.00,
+      "SEMI": 1.00,
+      "XAIX": 1.00,
+      "RBTX": 1.00,
+      "ITPS": 1.00,
+      "ISPY": 1.00,
+      "NUCG": 1.00,
+      "WDEP": 1.00
+    }
+  },
+  {
+    "state": "Conflict",
+    "prob": 0.150,
+    "mu_shift": {
+      "DEFAULT": -0.04,
+      "WDEP": 0.07,
+      "ISPY": 0.08,
+      "SGLN": 0.03,
+      "XAIX": -0.12,
+      "SEMI": -0.08,
+      "XCX5": -0.10,
+      "PACW": -0.06
+    },
+    "sigma_mult": {
+      "DEFAULT": 1.32,
+      "VAGS": 1.10,
+      "SGLN": 0.90
+    }
+  },
+  {
+    "state": "Managed",
+    "prob": 0.1125,
+    "mu_shift": {
+      "DEFAULT": 0.01,
+      "XAIX": 0.02,
+      "WCOM": 0.01,
+      "ITPS": 0.03,
+      "VAGS": 0.01
+    },
+    "sigma_mult": {
+      "DEFAULT": 1.00,
+      "XAIX": 0.90
+    }
+  },
+  {
+    "state": "Oligopoly",
+    "prob": 0.015,
+    "mu_shift": {
+      "DEFAULT": 0.055,
+      "XAIX": 0.12,
+      "SEMI": 0.08,
+      "PRIJ": 0.10,
+      "EQQQ": 0.07
+    },
+    "sigma_mult": {
+      "DEFAULT": 1.12,
+      "XAIX": 1.20,
+      "SEMI": 1.15
+    }
+  },
+  {
+    "state": "Abundance",
+    "prob": 0.0225,
+    "mu_shift": {
+      "DEFAULT": 0.03,
+      "WLDS": 0.05,
+      "IWFV": 0.04,
+      "EMIM": 0.03,
+      "XAIX": 0.00
+    },
+    "sigma_mult": {
+      "DEFAULT": 0.78,
+      "VAGS": 0.85
+    }
+  }
+]
