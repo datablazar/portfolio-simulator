@@ -55,8 +55,11 @@
     "condition": ["ALWAYS"],
     "delta_drift": { "PACW": -1 },
     "delta_vol": 0.00,
-    "next_events": [],
-    "narrative": "US/EU/UK AI safety treaty pushes back unregulated AGI scaling. Slightly dampens Asia-Pacific tech growth."
+    "next_events": [
+      ["E-B0-GlobalAIGovTreaty", 0.40],
+      ["E-B0-ContinuedDelay", 0.60]
+    ],
+    "narrative": "US/EU/UK AI safety treaty pushes back unregulated AGI scaling. Slightly dampens Asia-Pacific tech growth, but now creates a fork for future governance."
   },
   {
     "id": "E-B0-EU-AIAct",
@@ -78,7 +81,8 @@
     "delta_drift": { "SEMI": 4, "PACW": -2 },
     "delta_vol": 0.05,
     "next_events": [
-      ["E-B0-EscalatedTechWar", 0.30]
+      ["E-B0-EscalatedTechWar", 0.30],
+      ["E-B0-NoTechWarEscalation", 0.70]
     ],
     "narrative": "US tightens AI chip exports (e.g. bans on HBM memory to China from 2024). Strengthens US semis, hurts Chinese/Asian tech sector. May lead to an escalated tech war."
   },
@@ -139,6 +143,50 @@
         ["E-P3-Managed", 0.25]
     ],
     "narrative": "Geopolitical tensions over AI supremacy escalate into broader tech and trade conflicts, leading to supply chain disruptions and increased defense spending."
+  },
+  {
+    "id": "E-B0-NoTechWarEscalation",
+    "stage": "Pre-AGI",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-B0-ExportControls"],
+    "delta_drift": {},
+    "delta_vol": 0.00,
+    "next_events": [],
+    "narrative": "Despite export controls, geopolitical tensions do not escalate into a broader tech war, or are successfully de-escalated."
+  },
+  {
+    "id": "E-B0-AIPharmaBreakthrough",
+    "stage": "Pre-AGI",
+    "year_offset": 0,
+    "base_prob": 0.15,
+    "condition": ["ALWAYS"],
+    "delta_drift": { "PACW": 2, "IWFQ": 3, "MINV": 4 },
+    "delta_vol": -0.01,
+    "next_events": [],
+    "narrative": "AI achieves a major breakthrough in pharmaceutical R&D, accelerating drug discovery and development significantly."
+  },
+  {
+    "id": "E-B0-ContinuedDelay",
+    "stage": "Pre-AGI",
+    "year_offset": 2,
+    "base_prob": 0.0,
+    "condition": ["E-B0-TreatyDelay"],
+    "delta_drift": { "PACW": -0.01, "XAIX": -0.02 },
+    "delta_vol": 0.02,
+    "next_events": [],
+    "narrative": "International efforts to regulate AGI continue to be stalled by disagreements among major powers, leading to sustained regulatory uncertainty."
+  },
+  {
+    "id": "E-B0-GlobalAIGovTreaty",
+    "stage": "Pre-AGI",
+    "year_offset": 2,
+    "base_prob": 0.0,
+    "condition": ["E-B0-TreatyDelay"],
+    "delta_drift": { "WLDS": 0.02, "VAGS": 0.01, "IWFQ": 0.02 },
+    "delta_vol": -0.05,
+    "next_events": [],
+    "narrative": "A landmark global treaty on AI safety and governance is successfully negotiated and ratified, establishing clear international norms and reducing systemic risk."
   },
   {
     "id": "E-B1-Success",
@@ -264,8 +312,11 @@
     "condition": ["E-S2-Throttled", "E-S2-Bottleneck"],
     "delta_drift": { "PACW": 2, "SEMI": 4 },
     "delta_vol": 0.00,
-    "next_events": [],
-    "narrative": "Regulated equilibrium: AI yields moderate boom with stable controls."
+    "next_events": [
+      ["E-P3-EquitableDistribution", 0.60],
+      ["E-P3-InequitableOutcome", 0.40]
+    ],
+    "narrative": "Regulated equilibrium: AI yields moderate boom with stable controls, leading to a fork in wealth distribution."
   },
   {
     "id": "E-P3-Conflict",
@@ -288,5 +339,16 @@
     "delta_vol": -0.10,
     "next_events": [],
     "narrative": "Successful implementation of policies like Universal Basic Income (UBI) and progressive taxation of AGI-generated wealth leads to broad-based prosperity and sustained aggregate demand."
+  },
+  {
+    "id": "E-P3-InequitableOutcome",
+    "stage": "Post-ASI",
+    "year_offset": 1,
+    "base_prob": 0.0,
+    "condition": ["E-P3-Managed"],
+    "delta_drift": { "DEFAULT": -0.02, "WLDS": -0.03, "VAGS": 0.02, "PRIJ": -0.04 },
+    "delta_vol": 0.18,
+    "next_events": [],
+    "narrative": "Efforts to equitably distribute AGI-generated wealth fail, leading to increased social inequality, unrest, and dampened aggregate demand."
   }
 ]
