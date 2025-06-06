@@ -83,6 +83,9 @@ class BatchRunner:
         fired_counts  = {}
 
         for i in range(self.n_paths):
+            # Reset event engine state so events don't bleed across paths
+            self.et.reset()
+
             # Per-path initializations
             timeline = self.ts.sample_timeline()
             bucket_counts[timeline["bucket"]] += 1

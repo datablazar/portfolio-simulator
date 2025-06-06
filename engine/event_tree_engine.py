@@ -45,6 +45,14 @@ class EventTreeEngine:
         # NEW: Load event_stats.json and create the map
         self.event_stats_map = self._load_event_stats_map()
 
+        # Initialize per-run state
+        self.reset()
+
+    def reset(self) -> None:
+        """Clear state so events are evaluated independently."""
+        self._fired_events_history: set[str] = set()
+        self.triggered_ep3_event_id = None
+
     def _load_events(self, events_path: str | Path) -> List[Event]:
         """Loads events from a JSON file."""
         with open(events_path, "r") as f:
