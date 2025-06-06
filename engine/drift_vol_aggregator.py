@@ -28,7 +28,7 @@ from __future__ import annotations
 import json
 import numpy as np
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
 
 class DriftVolAggregator:
@@ -68,8 +68,6 @@ class DriftVolAggregator:
 
         Returns dict with keys "mu" (shape: n_assets) and "cov" (shape: n_assets, n_assets).
         """
-        n_assets = len(self.tickers) # This line now has access to self.tickers
-
         # 1) Initialize mu_this_year with baseline mu
         mu_this_year = self.base_mu.copy()  # shape (n_assets)
 
