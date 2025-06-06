@@ -11,16 +11,14 @@ an array-based stochastic noise model.
 Public API
 ----------
 agg = DriftVolAggregator("data/asset_baseline.json", tickers)
-combo = agg.combine(event_drift_for_year, vol_mult_for_year)
+combo = agg.combine(event_drift_for_year)
 #   - event_drift_for_year: np.ndarray of shape (n_assets),
 #       containing additive annual drift deltas (in decimals) from fired events for a single year.
-#   - vol_mult_for_year:     float,
-#       representing the total volatility multiplier for that single year.
 #
 # Returns:
 #   {
 #     "mu":  np.ndarray shape (n_assets),
-#     "cov": np.ndarray shape (n_assets, n_assets)
+#     "cov": np.ndarray shape (n_assets, n_assets) (this will be the baseline covariance)
 #   }
 """
 
@@ -28,7 +26,7 @@ from __future__ import annotations
 import json
 import numpy as np
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
 
 class DriftVolAggregator:
@@ -37,7 +35,7 @@ class DriftVolAggregator:
             base = json.load(f)
 
         # Store tickers as an instance attribute
-        self.tickers = tickers # <-- ADDED THIS LINE
+        self.tickers = tickers
 
         # Load baseline drifts (in %) and volatilities (in %), convert to decimals
         self.base_mu  = np.array([base["mu"][t]    for t in tickers]) / 100.0
@@ -54,22 +52,19 @@ class DriftVolAggregator:
         self.rng = None  # type: ignore
 
     def combine(self,
-                event_drift_for_year: np.ndarray,   # shape: (n_assets,) for a single year
-                vol_mult_for_year:    float         # scalar for a single year
+                event_drift_for_year: np.ndarray  # shape: (n_assets,) for a single year
                ) -> Dict[str, np.ndarray]:
         """
-        Combine baseline and event deltas for a single year into a drift & covariance.
+        Combine baseline and event deltas for a single year into a drift,
+        and return baseline covariance.
 
         Steps:
           1) Initialize mu_this_year = baseline μ for this year.
           2) For each cell where event_drift_for_year != 0, draw noise ~ Normal(0, 0.4*|event_drift_for_year|).
              Add (drift + noise) to base μ for that asset.
-          3) Build covariance for this year by scaling base_cov by (vol_mult_for_year)^2.
 
-        Returns dict with keys "mu" (shape: n_assets) and "cov" (shape: n_assets, n_assets).
+        Returns dict with keys "mu" (shape: n_assets) and "cov" (baseline covariance).
         """
-        n_assets = len(self.tickers) # This line now has access to self.tickers
-
         # 1) Initialize mu_this_year with baseline mu
         mu_this_year = self.base_mu.copy()  # shape (n_assets)
 
@@ -87,8 +82,5 @@ class DriftVolAggregator:
         # Final drift = baseline + event_drift_for_year + noise
         mu_this_year += event_drift_for_year + noise
 
-        # 3) Build covariance for this year by scaling base_cov
-        scale = vol_mult_for_year  # volumetric multiplier for the current year
-        cov_this_year = self.base_cov * (scale ** 2)
-
-        return {"mu": mu_this_year, "cov": cov_this_year}
+        # Return adjusted mu and baseline covariance (vol scaling will happen in BatchRunner)
+        return {"mu": mu_this_year, "cov": self.base_cov}

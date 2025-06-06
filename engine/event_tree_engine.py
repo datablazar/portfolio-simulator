@@ -45,20 +45,36 @@ class EventTreeEngine:
         # NEW: Load event_stats.json and create the map
         self.event_stats_map = self._load_event_stats_map()
 
+        # Initialize per-run state
+        self.reset()
+
+    def reset(self) -> None:
+        """Clear state so events are evaluated independently."""
+        self._fired_events_history: set[str] = set()
+        self.triggered_ep3_event_id = None
+
     def _load_events(self, events_path: str | Path) -> List[Event]:
         """Loads events from a JSON file."""
         with open(events_path, "r") as f:
             raw_events = json.load(f)
         return [Event(**data) for data in raw_events]
 
-    def _load_event_stats_map(self) -> Dict[str, Tuple[float, float]]:
+    def _load_event_stats_map(self) -> Dict[str, Any]: # Changed return type hint to Any for flexibility
         """Loads event statistics from event_stats.json and creates a map."""
         event_stats_path = Path(__file__).resolve().parent.parent / "data" / "event_stats.json"
         with open(event_stats_path, "r") as f:
             raw_stats = json.load(f)
         
-        # Map id -> (mu, sigma)
-        return {entry["id"]: (entry["mu"], entry["sigma"]) for entry in raw_stats}
+        # Map id -> (drift_mu_dict, drift_sigma_dict, vol_mu_dict, vol_sigma_dict)
+        parsed_map = {}
+        for entry in raw_stats:
+            parsed_map[entry["id"]] = (
+                entry.get("drift_mu", {}),
+                entry.get("drift_sigma", {}),
+                entry.get("vol_mu", {}),
+                entry.get("vol_sigma", {})
+            )
+        return parsed_map
 
     def simulate_events(self,
                         timeline: Dict[str, int | None],
@@ -81,7 +97,7 @@ class EventTreeEngine:
         fired_events_this_year: List[Event] = []
         # Initialize drifts and volatility for this year
         year_drift = np.zeros(len(self.tickers))
-        year_vol_change = 0.0 # additive change
+        year_vol_multiplier_array = np.ones(len(self.tickers)) # Initialized as array of 1.0s
 
         # --- NEW: Check if an E-P3 event has already been persistently triggered ---
         if self.triggered_ep3_event_id is not None:
@@ -91,7 +107,7 @@ class EventTreeEngine:
             return {
                 "fired": [],
                 "drift": year_drift,
-                "volmul": 1.0, # Will be overridden by macro state effects
+                "volmul": year_vol_multiplier_array, # Return the default ones array
                 "triggered_ep3_event_id": self.triggered_ep3_event_id
             }
 
@@ -135,23 +151,39 @@ class EventTreeEngine:
                 newly_fired_events_this_year.append(event)
                 self._fired_events_history.add(event.id)
 
-                for ticker, drift_val in event.delta_drift.items():
-                    try:
-                        idx = self.tickers.index(ticker)
-                        year_drift[idx] += drift_val / 100.0
-                    except ValueError:
-                        print(f"Warning: Ticker {ticker} in event {event.id} not found in asset list.")
-                year_vol_change += event.delta_vol
+                # Retrieve the stochastic parameters for the fired event
+                drift_mu_dict, drift_sigma_dict, vol_mu_dict, vol_sigma_dict = \
+                    self.event_stats_map.get(event.id, ({}, {}, {}, {}))
 
+                # Apply Stochastic Drift
+                for idx, ticker in enumerate(self.tickers):
+                    if ticker in drift_mu_dict and ticker in drift_sigma_dict:
+                        # Draw a random drift value for this asset for this event
+                        stochastic_drift = self.rng.normal(
+                            loc=drift_mu_dict[ticker], # Assuming values in JSON are already decimals
+                            scale=drift_sigma_dict[ticker]
+                        )
+                        year_drift[idx] += stochastic_drift
+                
+                # Apply Asset-Specific Stochastic Volatility Multiplier
+                for idx, ticker in enumerate(self.tickers):
+                    if ticker in vol_mu_dict and ticker in vol_sigma_dict:
+                        # Draw a random volatility multiplier for this asset for this event
+                        stochastic_vol_mult = self.rng.normal(
+                            loc=vol_mu_dict[ticker],
+                            scale=vol_sigma_dict[ticker]
+                        )
+                        year_vol_multiplier_array[idx] *= stochastic_vol_mult
+                
                 if event.stage == "Post-ASI":
                     self.triggered_ep3_event_id = event.id
 
-        final_vol_multiplier = 1.0 + year_vol_change
+        # final_vol_multiplier = 1.0 + year_vol_change # This line is removed
 
         return {
             "fired": newly_fired_events_this_year,
             "drift": year_drift,
-            "volmul": final_vol_multiplier,
+            "volmul": year_vol_multiplier_array, # This is now an array, not a scalar
             "triggered_ep3_event_id": self.triggered_ep3_event_id
         }
 
@@ -194,7 +226,7 @@ if __name__ == "__main__":
         
         newly_fired = event_results["fired"]
         year_drift = event_results["drift"]
-        year_volmul = event_results["volmul"]
+        year_volmul = event_results["volmul"] # This will now be an array
         
         current_ep3_event = event_results["triggered_ep3_event_id"]
 
@@ -204,7 +236,7 @@ if __name__ == "__main__":
             print("  No new events fired this year.")
         
         print(f"  Aggregate Drift this year: {year_drift}")
-        print(f"  Vol Multiplier this year: {year_volmul}")
+        print(f"  Vol Multiplier this year: {year_volmul}") # This will now be an array
         print(f"  Current E-P3 Event ID (for macro state): {current_ep3_event}")
         
         # Example of how macro state would be determined (conceptual, requires macro.py)
